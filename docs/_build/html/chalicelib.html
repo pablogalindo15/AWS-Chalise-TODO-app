@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chalicelib package &mdash; Documentacion Todo 1.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=1ed6394b"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="createtable module" href="createtable.html" />
+    <link rel="prev" title="app module" href="app.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Documentacion Todo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">todo og</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="app.html">app module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">chalicelib package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-chalicelib.auth">chalicelib.auth module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#chalicelib.auth.decode_jwt_token"><code class="docutils literal notranslate"><span class="pre">decode_jwt_token()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chalicelib.auth.get_jwt_token"><code class="docutils literal notranslate"><span class="pre">get_jwt_token()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-chalicelib.db">chalicelib.db module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#chalicelib.db.DynamoDBTodo"><code class="docutils literal notranslate"><span class="pre">DynamoDBTodo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chalicelib.db.InMemoryTodoDB"><code class="docutils literal notranslate"><span class="pre">InMemoryTodoDB</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chalicelib.db.TodoDB"><code class="docutils literal notranslate"><span class="pre">TodoDB</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-chalicelib">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="createtable.html">createtable module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="users.html">users module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Documentacion Todo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">todo og</a></li>
+      <li class="breadcrumb-item active">chalicelib package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/chalicelib.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="chalicelib-package">
+<h1>chalicelib package<a class="headerlink" href="#chalicelib-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-chalicelib.auth">
+<span id="chalicelib-auth-module"></span><h2>chalicelib.auth module<a class="headerlink" href="#module-chalicelib.auth" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="chalicelib.auth.decode_jwt_token">
+<span class="sig-prename descclassname"><span class="pre">chalicelib.auth.</span></span><span class="sig-name descname"><span class="pre">decode_jwt_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/auth.html#decode_jwt_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.auth.decode_jwt_token" title="Link to this definition"></a></dt>
+<dd><p>Decode and validate a JWT token.</p>
+<p>This function decodes the provided JWT token and verifies its signature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>token</strong> – The JWT token string to decode and validate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The decoded payload of the JWT token.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>jwt.InvalidTokenError</strong> – If the token is invalid or has expired.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="chalicelib.auth.get_jwt_token">
+<span class="sig-prename descclassname"><span class="pre">chalicelib.auth.</span></span><span class="sig-name descname"><span class="pre">get_jwt_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/auth.html#get_jwt_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.auth.get_jwt_token" title="Link to this definition"></a></dt>
+<dd><p>Generate a JWT token for a user upon successful authentication.</p>
+<p>This function verifies the provided password against the stored hash and,
+if valid, generates a JWT token for the user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> – The username of the user.</p></li>
+<li><p><strong>password</strong> – The password provided by the user.</p></li>
+<li><p><strong>record</strong> – The user’s record from the database, containing hash information.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A JWT token string if authentication is successful.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>UnauthorizedError</strong> – If the password is invalid.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-chalicelib.db">
+<span id="chalicelib-db-module"></span><h2>chalicelib.db module<a class="headerlink" href="#module-chalicelib.db" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="chalicelib.db.DynamoDBTodo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">chalicelib.db.</span></span><span class="sig-name descname"><span class="pre">DynamoDBTodo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_resource</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#DynamoDBTodo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.DynamoDBTodo" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#chalicelib.db.TodoDB" title="chalicelib.db.TodoDB"><code class="xref py py-class docutils literal notranslate"><span class="pre">TodoDB</span></code></a></p>
+<p>DynamoDB implementation of the TODO database.</p>
+<p>This class provides a DynamoDB storage for TODO items.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.DynamoDBTodo.add_item">
+<span class="sig-name descname"><span class="pre">add_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#DynamoDBTodo.add_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.DynamoDBTodo.add_item" title="Link to this definition"></a></dt>
+<dd><p>Add a new TODO item for a specific user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>description</strong> – The description of the TODO item.</p></li>
+<li><p><strong>metadata</strong> – Optional metadata for the TODO item.</p></li>
+<li><p><strong>username</strong> – The username of the user. Defaults to ‘default’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The unique identifier (UID) of the newly added TODO item.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.DynamoDBTodo.delete_item">
+<span class="sig-name descname"><span class="pre">delete_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#DynamoDBTodo.delete_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.DynamoDBTodo.delete_item" title="Link to this definition"></a></dt>
+<dd><p>Delete a specific TODO item for a specific user by its unique identifier (UID).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uid</strong> – The unique identifier of the TODO item.</p></li>
+<li><p><strong>username</strong> – The username of the user. Defaults to ‘default’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.DynamoDBTodo.get_item">
+<span class="sig-name descname"><span class="pre">get_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#DynamoDBTodo.get_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.DynamoDBTodo.get_item" title="Link to this definition"></a></dt>
+<dd><p>Get a specific TODO item for a specific user by its unique identifier (UID).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uid</strong> – The unique identifier of the TODO item.</p></li>
+<li><p><strong>username</strong> – The username of the user. Defaults to ‘default’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The TODO item with the given UID.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.DynamoDBTodo.list_all_items">
+<span class="sig-name descname"><span class="pre">list_all_items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#DynamoDBTodo.list_all_items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.DynamoDBTodo.list_all_items" title="Link to this definition"></a></dt>
+<dd><p>List all TODO items for all users.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of all TODO items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.DynamoDBTodo.list_items">
+<span class="sig-name descname"><span class="pre">list_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#DynamoDBTodo.list_items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.DynamoDBTodo.list_items" title="Link to this definition"></a></dt>
+<dd><p>List all TODO items for a specific user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>username</strong> – The username of the user. Defaults to ‘default’.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of TODO items for the user.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.DynamoDBTodo.update_item">
+<span class="sig-name descname"><span class="pre">update_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#DynamoDBTodo.update_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.DynamoDBTodo.update_item" title="Link to this definition"></a></dt>
+<dd><p>Update a specific TODO item for a specific user by its unique identifier (UID).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uid</strong> – The unique identifier of the TODO item.</p></li>
+<li><p><strong>description</strong> – Optional new description for the TODO item.</p></li>
+<li><p><strong>state</strong> – Optional new state for the TODO item.</p></li>
+<li><p><strong>metadata</strong> – Optional new metadata for the TODO item.</p></li>
+<li><p><strong>username</strong> – The username of the user. Defaults to ‘default’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="chalicelib.db.InMemoryTodoDB">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">chalicelib.db.</span></span><span class="sig-name descname"><span class="pre">InMemoryTodoDB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#InMemoryTodoDB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.InMemoryTodoDB" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#chalicelib.db.TodoDB" title="chalicelib.db.TodoDB"><code class="xref py py-class docutils literal notranslate"><span class="pre">TodoDB</span></code></a></p>
+<p>In-memory implementation of the TODO database.</p>
+<p>This class provides an in-memory storage for TODO items, useful for testing and development.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.InMemoryTodoDB.add_item">
+<span class="sig-name descname"><span class="pre">add_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#InMemoryTodoDB.add_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.InMemoryTodoDB.add_item" title="Link to this definition"></a></dt>
+<dd><p>Add a new TODO item for a specific user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>description</strong> – The description of the TODO item.</p></li>
+<li><p><strong>metadata</strong> – Optional metadata for the TODO item.</p></li>
+<li><p><strong>username</strong> – The username of the user. Defaults to ‘default’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The unique identifier (UID) of the newly added TODO item.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.InMemoryTodoDB.delete_item">
+<span class="sig-name descname"><span class="pre">delete_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#InMemoryTodoDB.delete_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.InMemoryTodoDB.delete_item" title="Link to this definition"></a></dt>
+<dd><p>Delete a specific TODO item for a specific user by its unique identifier (UID).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uid</strong> – The unique identifier of the TODO item.</p></li>
+<li><p><strong>username</strong> – The username of the user. Defaults to ‘default’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.InMemoryTodoDB.get_item">
+<span class="sig-name descname"><span class="pre">get_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#InMemoryTodoDB.get_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.InMemoryTodoDB.get_item" title="Link to this definition"></a></dt>
+<dd><p>Get a specific TODO item for a specific user by its unique identifier (UID).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uid</strong> – The unique identifier of the TODO item.</p></li>
+<li><p><strong>username</strong> – The username of the user. Defaults to ‘default’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The TODO item with the given UID.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.InMemoryTodoDB.list_all_items">
+<span class="sig-name descname"><span class="pre">list_all_items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#InMemoryTodoDB.list_all_items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.InMemoryTodoDB.list_all_items" title="Link to this definition"></a></dt>
+<dd><p>List all TODO items for all users.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of all TODO items.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.InMemoryTodoDB.list_items">
+<span class="sig-name descname"><span class="pre">list_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#InMemoryTodoDB.list_items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.InMemoryTodoDB.list_items" title="Link to this definition"></a></dt>
+<dd><p>List all TODO items for a specific user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>username</strong> – The username of the user. Defaults to ‘default’.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of TODO items for the user.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.InMemoryTodoDB.update_item">
+<span class="sig-name descname"><span class="pre">update_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#InMemoryTodoDB.update_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.InMemoryTodoDB.update_item" title="Link to this definition"></a></dt>
+<dd><p>Update a specific TODO item for a specific user by its unique identifier (UID).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uid</strong> – The unique identifier of the TODO item.</p></li>
+<li><p><strong>description</strong> – Optional new description for the TODO item.</p></li>
+<li><p><strong>state</strong> – Optional new state for the TODO item.</p></li>
+<li><p><strong>metadata</strong> – Optional new metadata for the TODO item.</p></li>
+<li><p><strong>username</strong> – The username of the user. Defaults to ‘default’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="chalicelib.db.TodoDB">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">chalicelib.db.</span></span><span class="sig-name descname"><span class="pre">TodoDB</span></span><a class="reference internal" href="_modules/chalicelib/db.html#TodoDB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.TodoDB" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Abstract base class for a TODO database.</p>
+<p>This class defines the interface for managing TODO items.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.TodoDB.add_item">
+<span class="sig-name descname"><span class="pre">add_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#TodoDB.add_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.TodoDB.add_item" title="Link to this definition"></a></dt>
+<dd><p>Add a new TODO item.</p>
+<p>This method should be implemented by subclasses to add a new TODO item.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>description</strong> – The description of the TODO item.</p></li>
+<li><p><strong>metadata</strong> – Optional metadata for the TODO item.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.TodoDB.delete_item">
+<span class="sig-name descname"><span class="pre">delete_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#TodoDB.delete_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.TodoDB.delete_item" title="Link to this definition"></a></dt>
+<dd><p>Delete a specific TODO item by its unique identifier (UID).</p>
+<p>This method should be implemented by subclasses to delete a TODO item.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>uid</strong> – The unique identifier of the TODO item.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.TodoDB.get_item">
+<span class="sig-name descname"><span class="pre">get_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#TodoDB.get_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.TodoDB.get_item" title="Link to this definition"></a></dt>
+<dd><p>Get a specific TODO item by its unique identifier (UID).</p>
+<p>This method should be implemented by subclasses to return a TODO item.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>uid</strong> – The unique identifier of the TODO item.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.TodoDB.list_items">
+<span class="sig-name descname"><span class="pre">list_items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#TodoDB.list_items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.TodoDB.list_items" title="Link to this definition"></a></dt>
+<dd><p>List all TODO items.</p>
+<p>This method should be implemented by subclasses to return a list of TODO items.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="chalicelib.db.TodoDB.update_item">
+<span class="sig-name descname"><span class="pre">update_item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/chalicelib/db.html#TodoDB.update_item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#chalicelib.db.TodoDB.update_item" title="Link to this definition"></a></dt>
+<dd><p>Update a specific TODO item by its unique identifier (UID).</p>
+<p>This method should be implemented by subclasses to update a TODO item.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uid</strong> – The unique identifier of the TODO item.</p></li>
+<li><p><strong>description</strong> – Optional new description for the TODO item.</p></li>
+<li><p><strong>state</strong> – Optional new state for the TODO item.</p></li>
+<li><p><strong>metadata</strong> – Optional new metadata for the TODO item.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-chalicelib">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-chalicelib" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="app.html" class="btn btn-neutral float-left" title="app module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="createtable.html" class="btn btn-neutral float-right" title="createtable module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Pablo Galindo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

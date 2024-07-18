@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chalicelib.db &mdash; Documentacion Todo 1.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=1ed6394b"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Documentacion Todo
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">todo og</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Documentacion Todo</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">chalicelib.db</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for chalicelib.db</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">uuid4</span>
+<span class="kn">from</span> <span class="nn">boto3.dynamodb.conditions</span> <span class="kn">import</span> <span class="n">Key</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides classes for managing TODO items in different types of databases.</span>
+<span class="sd">It includes an abstract base class `TodoDB`, and concrete implementations for in-memory</span>
+<span class="sd">storage (`InMemoryTodoDB`) and DynamoDB storage (`DynamoDBTodo`).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">DEFAULT_USERNAME</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>
+
+<div class="viewcode-block" id="TodoDB">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.TodoDB">[docs]</a>
+<span class="k">class</span> <span class="nc">TodoDB</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract base class for a TODO database.</span>
+<span class="sd">    </span>
+<span class="sd">    This class defines the interface for managing TODO items.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TodoDB.list_items">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.TodoDB.list_items">[docs]</a>
+    <span class="k">def</span> <span class="nf">list_items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        List all TODO items.</span>
+
+<span class="sd">        This method should be implemented by subclasses to return a list of TODO items.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="TodoDB.add_item">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.TodoDB.add_item">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a new TODO item.</span>
+
+<span class="sd">        This method should be implemented by subclasses to add a new TODO item.</span>
+
+<span class="sd">        :param description: The description of the TODO item.</span>
+<span class="sd">        :param metadata: Optional metadata for the TODO item.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="TodoDB.get_item">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.TodoDB.get_item">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a specific TODO item by its unique identifier (UID).</span>
+
+<span class="sd">        This method should be implemented by subclasses to return a TODO item.</span>
+
+<span class="sd">        :param uid: The unique identifier of the TODO item.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="TodoDB.delete_item">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.TodoDB.delete_item">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a specific TODO item by its unique identifier (UID).</span>
+
+<span class="sd">        This method should be implemented by subclasses to delete a TODO item.</span>
+
+<span class="sd">        :param uid: The unique identifier of the TODO item.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="TodoDB.update_item">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.TodoDB.update_item">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update a specific TODO item by its unique identifier (UID).</span>
+
+<span class="sd">        This method should be implemented by subclasses to update a TODO item.</span>
+
+<span class="sd">        :param uid: The unique identifier of the TODO item.</span>
+<span class="sd">        :param description: Optional new description for the TODO item.</span>
+<span class="sd">        :param state: Optional new state for the TODO item.</span>
+<span class="sd">        :param metadata: Optional new metadata for the TODO item.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+</div>
+
+
+<div class="viewcode-block" id="InMemoryTodoDB">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.InMemoryTodoDB">[docs]</a>
+<span class="k">class</span> <span class="nc">InMemoryTodoDB</span><span class="p">(</span><span class="n">TodoDB</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    In-memory implementation of the TODO database.</span>
+
+<span class="sd">    This class provides an in-memory storage for TODO items, useful for testing and development.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the in-memory TODO database.</span>
+
+<span class="sd">        :param state: Optional initial state for the database. If not provided, an empty state is used.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">state</span>
+
+<div class="viewcode-block" id="InMemoryTodoDB.list_all_items">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.InMemoryTodoDB.list_all_items">[docs]</a>
+    <span class="k">def</span> <span class="nf">list_all_items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        List all TODO items for all users.</span>
+
+<span class="sd">        :return: A list of all TODO items.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">all_items</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">username</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">:</span>
+            <span class="n">all_items</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_items</span><span class="p">(</span><span class="n">username</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">all_items</span></div>
+
+
+<div class="viewcode-block" id="InMemoryTodoDB.list_items">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.InMemoryTodoDB.list_items">[docs]</a>
+    <span class="k">def</span> <span class="nf">list_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">DEFAULT_USERNAME</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        List all TODO items for a specific user.</span>
+
+<span class="sd">        :param username: The username of the user. Defaults to &#39;default&#39;.</span>
+<span class="sd">        :return: A list of TODO items for the user.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">values</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="InMemoryTodoDB.add_item">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.InMemoryTodoDB.add_item">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">DEFAULT_USERNAME</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a new TODO item for a specific user.</span>
+
+<span class="sd">        :param description: The description of the TODO item.</span>
+<span class="sd">        :param metadata: Optional metadata for the TODO item.</span>
+<span class="sd">        :param username: The username of the user. Defaults to &#39;default&#39;.</span>
+<span class="sd">        :return: The unique identifier (UID) of the newly added TODO item.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">username</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">[</span><span class="n">username</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">uid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid4</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">[</span><span class="n">username</span><span class="p">][</span><span class="n">uid</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="n">uid</span><span class="p">,</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
+            <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;unstarted&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">metadata</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{},</span>
+            <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">username</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">uid</span></div>
+
+
+<div class="viewcode-block" id="InMemoryTodoDB.get_item">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.InMemoryTodoDB.get_item">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">DEFAULT_USERNAME</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a specific TODO item for a specific user by its unique identifier (UID).</span>
+
+<span class="sd">        :param uid: The unique identifier of the TODO item.</span>
+<span class="sd">        :param username: The username of the user. Defaults to &#39;default&#39;.</span>
+<span class="sd">        :return: The TODO item with the given UID.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">[</span><span class="n">username</span><span class="p">][</span><span class="n">uid</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="InMemoryTodoDB.delete_item">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.InMemoryTodoDB.delete_item">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">DEFAULT_USERNAME</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a specific TODO item for a specific user by its unique identifier (UID).</span>
+
+<span class="sd">        :param uid: The unique identifier of the TODO item.</span>
+<span class="sd">        :param username: The username of the user. Defaults to &#39;default&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">[</span><span class="n">username</span><span class="p">][</span><span class="n">uid</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="InMemoryTodoDB.update_item">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.InMemoryTodoDB.update_item">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">DEFAULT_USERNAME</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update a specific TODO item for a specific user by its unique identifier (UID).</span>
+
+<span class="sd">        :param uid: The unique identifier of the TODO item.</span>
+<span class="sd">        :param description: Optional new description for the TODO item.</span>
+<span class="sd">        :param state: Optional new state for the TODO item.</span>
+<span class="sd">        :param metadata: Optional new metadata for the TODO item.</span>
+<span class="sd">        :param username: The username of the user. Defaults to &#39;default&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">[</span><span class="n">username</span><span class="p">][</span><span class="n">uid</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">item</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">description</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">item</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span>
+        <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">item</span><span class="p">[</span><span class="s1">&#39;metadata&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span></div>
+</div>
+
+
+<div class="viewcode-block" id="DynamoDBTodo">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.DynamoDBTodo">[docs]</a>
+<span class="k">class</span> <span class="nc">DynamoDBTodo</span><span class="p">(</span><span class="n">TodoDB</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    DynamoDB implementation of the TODO database.</span>
+
+<span class="sd">    This class provides a DynamoDB storage for TODO items.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table_resource</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the DynamoDB TODO database.</span>
+
+<span class="sd">        :param table_resource: The DynamoDB table resource.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_table</span> <span class="o">=</span> <span class="n">table_resource</span>
+
+<div class="viewcode-block" id="DynamoDBTodo.list_all_items">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.DynamoDBTodo.list_all_items">[docs]</a>
+    <span class="k">def</span> <span class="nf">list_all_items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        List all TODO items for all users.</span>
+
+<span class="sd">        :return: A list of all TODO items.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_table</span><span class="o">.</span><span class="n">scan</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;Items&#39;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="DynamoDBTodo.list_items">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.DynamoDBTodo.list_items">[docs]</a>
+    <span class="k">def</span> <span class="nf">list_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">DEFAULT_USERNAME</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        List all TODO items for a specific user.</span>
+
+<span class="sd">        :param username: The username of the user. Defaults to &#39;default&#39;.</span>
+<span class="sd">        :return: A list of TODO items for the user.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_table</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+            <span class="n">KeyConditionExpression</span><span class="o">=</span><span class="n">Key</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;Items&#39;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="DynamoDBTodo.add_item">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.DynamoDBTodo.add_item">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">DEFAULT_USERNAME</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a new TODO item for a specific user.</span>
+
+<span class="sd">        :param description: The description of the TODO item.</span>
+<span class="sd">        :param metadata: Optional metadata for the TODO item.</span>
+<span class="sd">        :param username: The username of the user. Defaults to &#39;default&#39;.</span>
+<span class="sd">        :return: The unique identifier (UID) of the newly added TODO item.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">uid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid4</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_table</span><span class="o">.</span><span class="n">put_item</span><span class="p">(</span>
+            <span class="n">Item</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span>
+                <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="n">uid</span><span class="p">,</span>
+                <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
+                <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;unstarted&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="n">metadata</span> <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{},</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">uid</span></div>
+
+
+<div class="viewcode-block" id="DynamoDBTodo.get_item">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.DynamoDBTodo.get_item">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">DEFAULT_USERNAME</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a specific TODO item for a specific user by its unique identifier (UID).</span>
+
+<span class="sd">        :param uid: The unique identifier of the TODO item.</span>
+<span class="sd">        :param username: The username of the user. Defaults to &#39;default&#39;.</span>
+<span class="sd">        :return: The TODO item with the given UID.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_table</span><span class="o">.</span><span class="n">get_item</span><span class="p">(</span>
+            <span class="n">Key</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span>
+                <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="n">uid</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;Item&#39;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="DynamoDBTodo.delete_item">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.DynamoDBTodo.delete_item">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">DEFAULT_USERNAME</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete a specific TODO item for a specific user by its unique identifier (UID).</span>
+
+<span class="sd">        :param uid: The unique identifier of the TODO item.</span>
+<span class="sd">        :param username: The username of the user. Defaults to &#39;default&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_table</span><span class="o">.</span><span class="n">delete_item</span><span class="p">(</span>
+            <span class="n">Key</span><span class="o">=</span><span class="p">{</span>
+                <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span>
+                <span class="s1">&#39;uid&#39;</span><span class="p">:</span> <span class="n">uid</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DynamoDBTodo.update_item">
+<a class="viewcode-back" href="../../chalicelib.html#chalicelib.db.DynamoDBTodo.update_item">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">DEFAULT_USERNAME</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update a specific TODO item for a specific user by its unique identifier (UID).</span>
+
+<span class="sd">        :param uid: The unique identifier of the TODO item.</span>
+<span class="sd">        :param description: Optional new description for the TODO item.</span>
+<span class="sd">        :param state: Optional new state for the TODO item.</span>
+<span class="sd">        :param metadata: Optional new metadata for the TODO item.</span>
+<span class="sd">        :param username: The username of the user. Defaults to &#39;default&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We could also use update_item() with an UpdateExpression.</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_item</span><span class="p">(</span><span class="n">uid</span><span class="p">,</span> <span class="n">username</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">item</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">description</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">item</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span>
+        <span class="k">if</span> <span class="n">metadata</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">item</span><span class="p">[</span><span class="s1">&#39;metadata&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_table</span><span class="o">.</span><span class="n">put_item</span><span class="p">(</span><span class="n">Item</span><span class="o">=</span><span class="n">item</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Pablo Galindo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
