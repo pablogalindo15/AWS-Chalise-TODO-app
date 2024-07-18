@@ -40,3 +40,25 @@ To build the documentation:
    ```sh
    git clone https://github.com/yourusername/todo-app.git
    cd todo-app
+
+2. Install dependencies
+ ```sh
+pip install -r requirements.txt
+```
+
+3. Configure AWS credentials
+Deploy the application
+ ```sh
+chalice deploy
+```
+
+For detailed setup and usage instructions, please refer to the Sphinx documentation.
+Learning Outcomes
+This project demonstrates:
+1. Building serverless applications with AWS Chalice
+2. Integrating with AWS services (API Gateway, Lambda, DynamoDB)
+3. Implementing JWT authentication in a serverless context
+4. Documenting a Python project with Sphinx
+Contributions and feedback are welcome!
+text
+
